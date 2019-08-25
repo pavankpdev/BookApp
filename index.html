@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      JS - BookList
+    </title>
+    <script src="https://kit.fontawesome.com/d3cfecb2a1.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://bootswatch.com/4/flatly/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <center>
+        <h1 class="display-4 mt-4">
+          <i class="fas fa-book-reader" style="color:#3498db "></i> Kp's<span
+            style="color: #3498db"
+          >
+            Book</span
+          >
+          App
+        </h1>
+      </center>
+      <div
+        class="card border-dark mb-5"
+        style="width: 50rem;position: absolute;left: 285px;"
+      >
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="Title">Book Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="title"
+                  id="title"
+                  aria-describedby="helpId"
+                  placeholder="Book Title"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="author">Book Author</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="author"
+                  id="author"
+                  aria-describedby="helpId"
+                  placeholder="Book Author"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="isbn">ISBN#</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="isbn"
+                  id="isbn"
+                  aria-describedby="helpId"
+                  placeholder="ISBN#"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="release_date"
+                  >Release Date
+                  <button type="button" class="btn btn-link btn-sm">
+                    (record today's date)
+                  </button></label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  name="release_date"
+                  id="release_date"
+                  aria-describedby="helpId"
+                  placeholder=""
+                />
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline-success">Submit</button
+          >&#160;&#160;&#160;
+          <button type="button" class="btn btn-outline-danger">Reset</button
+          ><br /><br />
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Book</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
