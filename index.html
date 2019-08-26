@@ -9,8 +9,15 @@
       rel="stylesheet"
       href="https://bootswatch.com/4/flatly/bootstrap.min.css"
     />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <div class="alert alert-dismissible alert-success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Hey There!</strong> Welcome To <strong>Kp's Book App</strong> Have
+      a Good Day.
+    </div>
     <div class="container-fluid">
       <center>
         <h1 class="display-4 mt-4">
@@ -71,15 +78,10 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="release_date"
-                  >Release Date
-                  <button type="button" class="btn btn-link btn-sm">
-                    (record today's date)
-                  </button></label
-                >
+                <label for="release_date">Release Date </label>
                 <input
                   type="date"
-                  class="form-control"
+                  class="form-control date"
                   name="release_date"
                   id="release_date"
                   aria-describedby="helpId"
@@ -88,9 +90,11 @@
               </div>
             </div>
           </div>
-          <button type="button" class="btn btn-outline-success">Submit</button
+          <button type="button" class="btn btn-success" id="submit">
+            Submit</button
           >&#160;&#160;&#160;
-          <button type="button" class="btn btn-outline-danger">Reset</button
+          <button type="button" class="btn btn-outline-danger" id="reset">
+            Reset</button
           ><br /><br />
           <table class="table table-striped">
             <thead>
@@ -99,25 +103,16 @@
                 <th>Author</th>
                 <th>ISBN</th>
                 <th>Date</th>
+                <th></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-              </tr>
+            <tbody class="table-body">
+              
             </tbody>
           </table>
         </div>
       </div>
     </div>
+    <script src="js/app.js"></script>
   </body>
 </html>
