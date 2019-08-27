@@ -4,6 +4,7 @@
     <title>
       JS - BookList
     </title>
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://kit.fontawesome.com/d3cfecb2a1.js"></script>
     <link
       rel="stylesheet"
@@ -93,7 +94,12 @@
           <button type="button" class="btn btn-success" id="submit">
             Submit</button
           >&#160;&#160;&#160;
-          <button type="button" class="btn btn-outline-danger" id="reset">
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            id="reset"
+            onclick="UI.clearFields();"
+          >
             Reset</button
           ><br /><br />
           <table class="table table-striped">
@@ -107,12 +113,21 @@
               </tr>
             </thead>
             <tbody class="table-body">
-              
+              <!--javascript handle is deployed here-->
             </tbody>
           </table>
         </div>
       </div>
     </div>
+    <script>
+      window.setTimeout(function() {
+        $(".alert")
+          .fadeTo(500, 0)
+          .slideUp(500, function() {
+            $(this).remove();
+          });
+      }, 4000);
+    </script>
     <script src="js/app.js"></script>
   </body>
 </html>
