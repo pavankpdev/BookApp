@@ -60,6 +60,35 @@ class UI {
     document.getElementById("isbn").value = "";
     document.getElementById("release_date").value = "";
   }
+
+  //handles empty form which is submitted
+
+  static displayEmptyMessage(formId) {
+    let inputField = formId.querySelector(".form-control");
+    inputField.classList.add("is-invalid");
+    let smallTag = `<small class="form-text text-danger">Input Fields cannot be empty !</small>`;
+    const position = "beforeend";
+    formId.insertAdjacentHTML(position, smallTag);
+  }
+
+  static checkForEmptyDetails(title, author, isbn, date) {
+    if (!title) {
+      const title = document.getElementById("titleForm");
+      this.displayEmptyMessage(title);
+    }
+    if (!author) {
+      const author = document.getElementById("authorForm");
+      this.displayEmptyMessage(author);
+    }
+    if (!isbn) {
+      const isbn = document.getElementById("isbnForm");
+      this.displayEmptyMessage(isbn);
+    }
+    if (!date) {
+      const date = document.getElementById("dateForm");
+      this.displayEmptyMessage(date);
+    }
+  }
 }
 
 // event listeners to load the table
@@ -75,11 +104,15 @@ submit.addEventListener("click", () => {
   const isbn = document.getElementById("isbn").value;
   const date = document.getElementById("release_date").value;
 
-  let books = new Book(title, author, isbn, date); // assuming that we're storing the book details in the local storage
+  UI.checkForEmptyDetails(title, author, isbn, date);
 
-  // call a method from UI handler to display this values in the UI
+  if (!document.querySelector(".card-body").contains("is-invalid")) {
+    let books = new Book(title, author, isbn, date); // assuming that we're storing the book details in the local storage
 
-  UI.addBookToList(books);
+    // call a method from UI handler to display this values in the UI
+
+    UI.addBookToList(books);
+  }
 
   // call a method to clear the input fields after submiting a book.
 
