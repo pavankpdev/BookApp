@@ -14,7 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div class="alert alert-dismissible alert-success">
+    <div class="alert alert-dismissible alert-success welcome">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <strong>Hey There!</strong> Welcome To <strong>Kp's Book App</strong> Have
       a Good Day.
@@ -35,6 +35,9 @@
         style="width: 50rem;position: absolute;left: 285px;"
       >
         <div class="card-body">
+          <!-- <div class="alert alert-dismissible alert-success">
+              <strong>Success !, Book was added</strong>
+          </div> -->
           <div class="row">
             <div class="col">
               <div class="form-group" id="titleForm">
@@ -121,7 +124,14 @@
     </div>
     <script>
       window.setTimeout(function() {
-        $(".alert")
+        $(".welcome")
+          .fadeTo(500, 0)
+          .slideUp(500, function() {
+            $(this).remove();
+          });
+      }, 4000);
+      window.setTimeout(function() {
+        $(".empty")
           .fadeTo(500, 0)
           .slideUp(500, function() {
             $(this).remove();

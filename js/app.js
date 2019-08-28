@@ -8,7 +8,7 @@ class Book {
     this.date = date;
   }
 }
-
+let count = 0;
 // UI class to handle UI task
 
 class UI {
@@ -54,40 +54,20 @@ class UI {
     }
   }
 
+  static alertEmptyFields() {
+    const cardBody = document.querySelector(".card-body");
+    const div = `<div class="alert alert-dismissible alert-danger empty">
+    <strong>Input fields cannot be empty !</strong>
+</div>`;
+
+    cardBody.insertAdjacentHTML("beforebegin", div);
+  }
+
   static clearFields() {
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
     document.getElementById("isbn").value = "";
     document.getElementById("release_date").value = "";
-  }
-
-  //handles empty form which is submitted
-
-  static displayEmptyMessage(formId) {
-    let inputField = formId.querySelector(".form-control");
-    inputField.classList.add("is-invalid");
-    let smallTag = `<small class="form-text text-danger">Input Fields cannot be empty !</small>`;
-    const position = "beforeend";
-    formId.insertAdjacentHTML(position, smallTag);
-  }
-
-  static checkForEmptyDetails(title, author, isbn, date) {
-    if (!title) {
-      const title = document.getElementById("titleForm");
-      this.displayEmptyMessage(title);
-    }
-    if (!author) {
-      const author = document.getElementById("authorForm");
-      this.displayEmptyMessage(author);
-    }
-    if (!isbn) {
-      const isbn = document.getElementById("isbnForm");
-      this.displayEmptyMessage(isbn);
-    }
-    if (!date) {
-      const date = document.getElementById("dateForm");
-      this.displayEmptyMessage(date);
-    }
   }
 }
 
@@ -104,19 +84,19 @@ submit.addEventListener("click", () => {
   const isbn = document.getElementById("isbn").value;
   const date = document.getElementById("release_date").value;
 
-  UI.checkForEmptyDetails(title, author, isbn, date);
-
-  if (!document.querySelector(".card-body").contains("is-invalid")) {
+  if (title === "" || author === "" || isbn === "" || date === "") {
+    UI.alertEmptyFields();
+  } else {
     let books = new Book(title, author, isbn, date); // assuming that we're storing the book details in the local storage
 
     // call a method from UI handler to display this values in the UI
 
     UI.addBookToList(books);
+
+    // call a method to clear the input fields after submiting a book.
+
+    UI.clearFields();
   }
-
-  // call a method to clear the input fields after submiting a book.
-
-  UI.clearFields();
 });
 
 // call a method to delete a book
