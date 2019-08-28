@@ -54,10 +54,11 @@ class UI {
     }
   }
 
-  static alertEmptyFields() {
+  static vaidation(classname, message) {
     const cardBody = document.querySelector(".card-body");
-    const div = `<div class="alert alert-dismissible alert-danger empty">
-    <strong>Input fields cannot be empty !</strong>
+    const div = `<div class="alert alert-dismissible alert-${classname} validation">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>${message}</strong>
 </div>`;
 
     cardBody.insertAdjacentHTML("beforebegin", div);
@@ -85,7 +86,7 @@ submit.addEventListener("click", () => {
   const date = document.getElementById("release_date").value;
 
   if (title === "" || author === "" || isbn === "" || date === "") {
-    UI.alertEmptyFields();
+    UI.vaidation("danger", "Input fields cannot be empty !");
   } else {
     let books = new Book(title, author, isbn, date); // assuming that we're storing the book details in the local storage
 
@@ -96,6 +97,8 @@ submit.addEventListener("click", () => {
     // call a method to clear the input fields after submiting a book.
 
     UI.clearFields();
+
+    UI.vaidation("success", "Success! Your book has been added.");
   }
 });
 

@@ -14,7 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div class="alert alert-dismissible alert-success welcome">
+    <div class="alert alert-dismissible alert-info welcome">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <strong>Hey There!</strong> Welcome To <strong>Kp's Book App</strong> Have
       a Good Day.
@@ -131,7 +131,7 @@
           });
       }, 4000);
       window.setTimeout(function() {
-        $(".empty")
+        $(".validation")
           .fadeTo(500, 0)
           .slideUp(500, function() {
             $(this).remove();
