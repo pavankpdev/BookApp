@@ -48,6 +48,7 @@ class UI {
   static deleteRecord(target) {
     if (target.classList.contains("delete")) {
       target.parentNode.parentNode.remove();
+      localStorage.removeItem(target.title);
     }
   }
 
