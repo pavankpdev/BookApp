@@ -1,5 +1,21 @@
-.delete:hover {
-  cursor: pointer;
-  transform: scale(1.3) rotate(12deg);
+.maincard {
+  max-width: 50rem;
+}
+.display-3 {
+  text-align: center;
 }
 
+.display-3 span {
+  color: #17a2b8;
+}
+
+.fas {
+  color: #17a2b8;
+}
+th {
+  color: #17a2b8;
+}
+.delete:hover {
+  cursor: pointer;
+  transform: scale(1.5) rotate(12deg);
+}
