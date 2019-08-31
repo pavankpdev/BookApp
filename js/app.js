@@ -1,5 +1,11 @@
-// Book class to hold the book object
-// This class 'Book' is assumed as local storage
+// reference constantes & variables
+const submit = document.getElementById("submit");
+const clear = document.getElementById("clear");
+const success = "Success! your book has been added";
+const danger = "Please fill in required fields.";
+let bookList = [];
+
+// Book Class: Represents a Book (this returs the input values as an object)
 class Book {
   constructor(title, author, isbn, date) {
     this.title = title;
@@ -8,103 +14,115 @@ class Book {
     this.date = date;
   }
 }
-let count = 0;
-// UI class to handle UI task
 
+//class to handle UI tasks
 class UI {
-  static displayBook() {
-    let arrayOfBooks = [
-      {
-        title: "JS",
-        author: "pavan",
-        isbn: 123,
-        date: "2019-08-24"
-      },
-      {
-        title: "JS",
-        author: "pavan",
-        isbn: 123,
-        date: "2019-08-24"
-      }
-    ];
-    let book = arrayOfBooks;
-    book.forEach(books => {
-      UI.addBookToList(books);
+  static displayBooks() {
+    let data = localStorage.getItem("book");
+    let arrayOfBooks = JSON.parse(data);
+    let booksRecord = arrayOfBooks;
+    booksRecord.forEach(books => UI.addBook(books));
+  }
+  // method add books to list in UI
+  static addBook(records) {
+    let table = document.querySelector(".table-body");
+    let tableRow = document.createElement("tr");
+    tableRow.innerHTML = `
+    <td>${records.title}</td>
+    <td>${records.author}</td>
+    <td>${records.isbn}</td>
+    <td>${records.date}</td>
+    <td><i class="far fa-trash-alt text-danger delete"></i></td>
+    `;
+    table.appendChild(tableRow);
+    bookList.push({
+      title: records.title,
+      author: records.author,
+      isbn: records.isbn,
+      date: records.date
     });
+    localStorage.setItem("book", JSON.stringify(bookList));
   }
 
-  //method to add a book
-  static addBookToList(books) {
-    const list = document.querySelector(".table-body");
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${books.title}</td>
-      <td>${books.author}</td>
-      <td>${books.isbn}</td>
-      <td>${books.date}</td>
-      <td><i class="far fa-trash-alt text-danger fa-lg delete" id="trash"></i></td>  
-      `;
-    list.appendChild(row);
-  }
-
-  // method to delete a book
-  static deleteBook(element) {
-    if (element.classList.contains("delete")) {
-      element.parentNode.parentNode.remove();
+  // method ro delete record
+  static deleteRecord(target) {
+    if (target.classList.contains("delete")) {
+      target.parentNode.parentNode.remove();
     }
   }
 
-  static vaidation(classname, message) {
-    const cardBody = document.querySelector(".card-body");
-    const div = `<div class="alert alert-dismissible alert-${classname} validation">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>${message}</strong>
-</div>`;
-
-    cardBody.insertAdjacentHTML("beforebegin", div);
-  }
-
+  // method to clear input fields after inserting books
   static clearFields() {
     document.getElementById("title").value = "";
     document.getElementById("author").value = "";
     document.getElementById("isbn").value = "";
-    document.getElementById("release_date").value = "";
+    document.getElementById("date").value = "";
+  }
+
+  // method to create alert
+  static message(classname, message) {
+    let alertSpot = document.querySelector(".card-body");
+    let alertElement = `
+        <div
+        class="alert alert-${classname} alert-dismissible fade show"
+        role="alert"
+        data-dismiss="alert"
+        data-auto-dismiss="2000"
+      >
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <strong>${message}</strong>
+      </div>
+      `;
+    alertSpot.insertAdjacentHTML("beforebegin", alertElement);
+    setTimeout(() => document.querySelector(".alert").remove(), 3000);
   }
 }
 
-// event listeners to load the table
+// This adds the existing list of books when the App is loaded
+document.addEventListener("DOMContentLoaded", UI.displayBooks);
 
-document.addEventListener("DOMContentLoaded", UI.displayBook());
+// this will trigger a method to remove a record
+let trash = document.querySelector(".table-body");
+trash.addEventListener("click", element => {
+  console.log("click recorded ", element.target);
+  UI.deleteRecord(element.target);
+});
 
-// Add a book from the UI
-
-const submit = document.getElementById("submit");
+// functionality triggered when submit button in pressed
 submit.addEventListener("click", () => {
   const title = document.getElementById("title").value;
   const author = document.getElementById("author").value;
   const isbn = document.getElementById("isbn").value;
-  const date = document.getElementById("release_date").value;
+  const date = document.getElementById("date").value;
 
-  if (title === "" || author === "" || isbn === "" || date === "") {
-    UI.vaidation("danger", "Input fields cannot be empty !");
+  if (title == "" || author == "" || isbn == "" || date == "") {
+    UI.message("danger", danger);
   } else {
-    let books = new Book(title, author, isbn, date); // assuming that we're storing the book details in the local storage
+    // Instantiating Book class to wrap the input fields into an object
+    let book = new Book(title, author, isbn, date);
+    // console.log("TCL: book", book);
 
-    // call a method from UI handler to display this values in the UI
+    // Using addBook method to display records into list
+    UI.addBook(book);
 
-    UI.addBookToList(books);
-
-    // call a method to clear the input fields after submiting a book.
-
+    // clear the input fields after successfull insertion
     UI.clearFields();
 
-    UI.vaidation("success", "Success! Your book has been added.");
+    // alerts success message
+    UI.message("success", success);
   }
 });
 
-// call a method to delete a book
+// functionality triggered when submit button in pressed
 
-const trash = document.querySelector(".table-body");
-trash.addEventListener("click", element => {
-  UI.deleteBook(element.target);
+clear.addEventListener("click", () => {
+  UI.clearFields();
 });
