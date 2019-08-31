@@ -8,136 +8,98 @@
     <script src="https://kit.fontawesome.com/d3cfecb2a1.js"></script>
     <link
       rel="stylesheet"
-      href="https://bootswatch.com/4/flatly/bootstrap.min.css"
+      href="https://bootswatch.com/4/sketchy/bootstrap.min.css"
     />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <div class="alert alert-dismissible alert-info welcome">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>Hey There!</strong> Welcome To <strong>Kp's Book App</strong> Have
-      a Good Day.
-    </div>
-    <div class="container-fluid">
-      <center>
-        <h1 class="display-4 mt-4">
-          <i class="fas fa-book-reader" style="color:#3498db "></i> Kp's<span
-            style="color: #3498db"
-          >
-            Book</span
-          >
-          App
-        </h1>
-      </center>
-      <div
-        class="card border-dark mb-5"
-        style="width: 50rem;position: absolute;left: 285px;"
-      >
+    <div class="container mb-4">
+      <div class="display-3">
+        <i class="fas fa-book-reader"></i> Kp's <span>Book</span> App
+      </div>
+      <div class="card border-dark mx-auto mt-4 maincard">
         <div class="card-body">
-          <!-- <div class="alert alert-dismissible alert-success">
-              <strong>Success !, Book was added</strong>
-          </div> -->
-          <div class="row">
-            <div class="col">
-              <div class="form-group" id="titleForm">
-                <label for="Title">Book Title</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="title"
-                  id="title"
-                  aria-describedby="helpId"
-                  placeholder="Book Title"
-                />
+          <form action="#">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="">Book Title</label>
+                  <input
+                    type="text"
+                    id="title"
+                    class="form-control"
+                    placeholder="Book Title"
+                    aria-describedby="helpId"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="">Book Author</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="author"
+                    aria-describedby="helpId"
+                    placeholder="Book Author"
+                  />
+                </div>
               </div>
             </div>
-            <div class="col">
-              <div class="form-group" id="authorForm">
-                <label for="author">Book Author</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="author"
-                  id="author"
-                  aria-describedby="helpId"
-                  placeholder="Book Author"
-                />
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="">ISBN#</label>
+                  <input
+                    type="text"
+                    id="isbn"
+                    class="form-control"
+                    placeholder="ISBN"
+                    aria-describedby="helpId"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="">Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="date"
+                    aria-describedby="helpId"
+                    placeholder="Date"
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group" id="isbnForm">
-                <label for="isbn">ISBN#</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="isbn"
-                  id="isbn"
-                  aria-describedby="helpId"
-                  placeholder="ISBN#"
-                />
+            <div class="row">
+              <div class="col">
+                <button type="button" id="submit" class="btn btn-info">
+                  Submit
+                </button>
+                <button type="button" class="btn btn-outline-danger" id="clear">
+                  Clear
+                </button>
               </div>
             </div>
-            <div class="col">
-              <div class="form-group" id="dateForm">
-                <label for="release_date">Release Date </label>
-                <input
-                  type="date"
-                  class="form-control date"
-                  name="release_date"
-                  id="release_date"
-                  aria-describedby="helpId"
-                  placeholder=""
-                />
-              </div>
-            </div>
-          </div>
-          <button type="button" class="btn btn-success" id="submit">
-            Submit</button
-          >&#160;&#160;&#160;
-          <button
-            type="button"
-            class="btn btn-outline-danger"
-            id="reset"
-            onclick="UI.clearFields();"
-          >
-            Reset</button
-          ><br /><br />
-          <table class="table table-striped">
+          </form>
+          <br />
+          <table class="table table-hover">
             <thead>
               <tr>
-                <th>Book</th>
-                <th>Author</th>
+                <th>Book Title</th>
+                <th>Book Author</th>
                 <th>ISBN</th>
                 <th>Date</th>
                 <th></th>
               </tr>
             </thead>
-            <tbody class="table-body">
-              <!--javascript handle is deployed here-->
-            </tbody>
+            <tbody class="table-body"></tbody>
           </table>
         </div>
       </div>
     </div>
-    <script>
-      window.setTimeout(function() {
-        $(".welcome")
-          .fadeTo(500, 0)
-          .slideUp(500, function() {
-            $(this).remove();
-          });
-      }, 4000);
-      window.setTimeout(function() {
-        $(".validation")
-          .fadeTo(500, 0)
-          .slideUp(500, function() {
-            $(this).remove();
-          });
-      }, 4000);
-    </script>
     <script src="js/app.js"></script>
   </body>
 </html>
