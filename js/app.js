@@ -86,7 +86,7 @@ class UI {
   static clearTable() {
     const tableBody = document.querySelector(".table-body");
     tableBody.innerHTML = "";
-    UI.message("info", "Table is clear");
+    UI.message("info", "Success! Table's Cleared");
     localStorage.clear("book");
     bookList = [];
     console.log("TCL: UI -> clearTable -> bookList", bookList);
@@ -117,6 +117,19 @@ class Store {
     localStorage.setItem("book", JSON.stringify(bookList));
     idG++;
   }
+
+  static removeItem(isbn) {
+    const books = JSON.parse(localStorage.getItem("book"));
+    for (let i = 0; i < books.length; i++) {
+      if (books[i].isbn === isbn) {
+        books.splice(i, 1);
+      }
+    }
+
+    console.log("TCL: Store -> removeItem -> books", books);
+
+    localStorage.setItem("book", JSON.stringify(books));
+  }
 }
 
 // This adds the existing list of books when the App is loaded
@@ -127,6 +140,11 @@ let trash = document.querySelector(".table-body");
 trash.addEventListener("click", element => {
   console.log("click recorded ", element.target);
   UI.deleteRecord(element.target);
+  let idRemove = element.target.attributes.id.value;
+  console.log("TCL: idRemove", idRemove);
+  Store.removeItem(
+    element.target.parentElement.previousElementSibling.textContent
+  );
 });
 
 //clear table button's icon animation triggered
