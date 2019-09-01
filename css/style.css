@@ -8,10 +8,14 @@
 .display-3 span {
   color: #17a2b8;
 }
-
-.fas {
-  color: #17a2b8;
+.fa-sync-alt {
+  color: #555555;
 }
+.btn-outline-secondary:hover .fa-sync-alt {
+  color: #ffffff;
+  transform: rotate(20deg);
+}
+
 th {
   color: #17a2b8;
 }
