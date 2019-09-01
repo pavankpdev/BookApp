@@ -3,25 +3,28 @@ const submit = document.getElementById("submit");
 const clear = document.getElementById("clear");
 const success = "Success! your book has been added";
 const danger = "Please fill in required fields.";
-let bookList = [];
+const clearTable = document.getElementById("clearTable");
+let bookList;
+let idG = 0;
 
 // Book Class: Represents a Book (this returs the input values as an object)
 class Book {
-  constructor(title, author, isbn, date) {
+  constructor(title, author, isbn, date, id) {
     this.title = title;
     this.author = author;
     this.isbn = isbn;
     this.date = date;
+    this.id = id;
   }
 }
 
 //class to handle UI tasks
 class UI {
   static displayBooks() {
-    let data = localStorage.getItem("book");
-    let arrayOfBooks = JSON.parse(data);
-    let booksRecord = arrayOfBooks;
-    booksRecord.forEach(books => UI.addBook(books));
+    Store.getItem();
+    console.log("TCL: UI -> displayBooks -> bookList", bookList);
+
+    bookList.forEach(books => UI.addBook(books));
   }
   // method add books to list in UI
   static addBook(records) {
@@ -32,24 +35,17 @@ class UI {
     <td>${records.author}</td>
     <td>${records.isbn}</td>
     <td>${records.date}</td>
-    <td><i class="far fa-trash-alt text-danger delete"></i></td>
+    <td><i class="far fa-trash-alt text-danger delete" id=${records.id}></i></td>
     `;
     table.appendChild(tableRow);
-    bookList.push({
-      title: records.title,
-      author: records.author,
-      isbn: records.isbn,
-      date: records.date
-    });
-    localStorage.setItem("book", JSON.stringify(bookList));
   }
 
   // method ro delete record
   static deleteRecord(target) {
     if (target.classList.contains("delete")) {
       target.parentNode.parentNode.remove();
-      localStorage.removeItem(target.title);
     }
+    let test = target.attributes.id.values;
   }
 
   // method to clear input fields after inserting books
@@ -85,6 +81,42 @@ class UI {
     alertSpot.insertAdjacentHTML("beforebegin", alertElement);
     setTimeout(() => document.querySelector(".alert").remove(), 3000);
   }
+
+  // clear table method
+  static clearTable() {
+    const tableBody = document.querySelector(".table-body");
+    tableBody.innerHTML = "";
+    UI.message("info", "Table is clear");
+    localStorage.clear("book");
+    bookList = [];
+    console.log("TCL: UI -> clearTable -> bookList", bookList);
+  }
+}
+
+// Storage class
+
+class Store {
+  static getItem() {
+    let data = localStorage.getItem("book");
+    if (data) {
+      let arrayOfBooks = JSON.parse(data);
+      bookList = arrayOfBooks;
+    } else {
+      bookList = [];
+    }
+  }
+
+  static addItem(book) {
+    bookList.push({
+      title: book.title,
+      author: book.author,
+      isbn: book.isbn,
+      date: book.date,
+      id: idG
+    });
+    localStorage.setItem("book", JSON.stringify(bookList));
+    idG++;
+  }
 }
 
 // This adds the existing list of books when the App is loaded
@@ -95,6 +127,18 @@ let trash = document.querySelector(".table-body");
 trash.addEventListener("click", element => {
   console.log("click recorded ", element.target);
   UI.deleteRecord(element.target);
+});
+
+//clear table button's icon animation triggered
+clearTable.addEventListener("mouseover", () => {
+  const spin = document.querySelector(".fa-sync-alt");
+  spin.classList.add("w3-spin");
+});
+
+//clear table button's icon animation stopped
+clearTable.addEventListener("mouseout", () => {
+  const spin = document.querySelector(".fa-sync-alt");
+  spin.classList.remove("w3-spin");
 });
 
 // functionality triggered when submit button in pressed
@@ -108,8 +152,8 @@ submit.addEventListener("click", () => {
     UI.message("danger", danger);
   } else {
     // Instantiating Book class to wrap the input fields into an object
-    let book = new Book(title, author, isbn, date);
-    // console.log("TCL: book", book);
+    let book = new Book(title, author, isbn, date, idG);
+    console.log("TCL: book", book);
 
     // Using addBook method to display records into list
     UI.addBook(book);
@@ -119,6 +163,8 @@ submit.addEventListener("click", () => {
 
     // alerts success message
     UI.message("success", success);
+
+    Store.addItem(book);
   }
 });
 
@@ -126,4 +172,8 @@ submit.addEventListener("click", () => {
 
 clear.addEventListener("click", () => {
   UI.clearFields();
+});
+
+clearTable.addEventListener("click", () => {
+  UI.clearTable();
 });
